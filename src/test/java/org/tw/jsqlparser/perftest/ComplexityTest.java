@@ -65,6 +65,7 @@ public class ComplexityTest {
     }
 
     @Test
+    @Ignore
     public void testComplexityOutput1() throws IOException {
         boolean result = true;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(ComplexityTest.class.getResourceAsStream("output1.sql")));) {
