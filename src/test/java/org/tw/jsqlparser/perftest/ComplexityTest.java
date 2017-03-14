@@ -36,6 +36,7 @@ public class ComplexityTest {
     }
 
     @Test
+    @Ignore
     public void testComplexity1() throws JSQLParserException, SQLException {
         MethodCounter counter = new MethodCounter();
         LogCallsCollector calls = new LogCallsCollector();
@@ -50,6 +51,7 @@ public class ComplexityTest {
     }
 
     @Test
+    @Ignore
     public void testComplexity2() throws JSQLParserException, IOException, SQLException {
         MethodCounter counter = new MethodCounter();
         LogCallsCollector calls = new LogCallsCollector();
@@ -126,5 +128,20 @@ public class ComplexityTest {
         if (!result) {
             fail("at least one sql failed to be parsed");
         }
+    }
+    
+    @Test
+    public void testComplexitySimpleCaseWhen() throws JSQLParserException, IOException, SQLException {
+        MethodCounter counter = new MethodCounter();
+        LogCallsCollector calls = new LogCallsCollector();
+        LookaheadCounter lookahead = new LookaheadCounter();
+        JavaCCMethodsAspect.init(counter, calls, lookahead);
+        String sql = "SELECT CASE WHEN ( CASE WHEN ( CASE WHEN ( CASE WHEN ( 1 ) THEN 0 END ) THEN 0 END ) THEN 0 END ) THEN 0 END FROM a";
+        Statement stmt = CCJSqlParserUtil.parse(sql);
+        System.out.println("counter=" + calls.getCount());
+        System.out.println("---- global method counts ----");
+        counter.logMethodCounts();
+        System.out.println("---- log lookahead counts ----");
+        lookahead.logMethodCalls();
     }
 }
