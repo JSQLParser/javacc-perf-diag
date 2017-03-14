@@ -56,7 +56,8 @@ public class ComplexityTest {
         MethodCounter counter = new MethodCounter();
         LogCallsCollector calls = new LogCallsCollector();
         LookaheadCounter lookahead = new LookaheadCounter();
-        JavaCCMethodsAspect.init(counter, calls, lookahead);
+        //JavaCCMethodsAspect.init(counter, calls, lookahead);
+        JavaCCMethodsAspect.init();
         String sql = IOUtils.toString(ComplexityTest.class.getResourceAsStream("large-sql-issue-235.txt"));
         Statement stmt = CCJSqlParserUtil.parse(sql);
         System.out.println("counter=" + calls.getCount());
@@ -67,7 +68,6 @@ public class ComplexityTest {
     }
 
     @Test
-    @Ignore
     public void testComplexityOutput1() throws IOException {
         boolean result = true;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(ComplexityTest.class.getResourceAsStream("output1.sql")));) {
@@ -77,7 +77,8 @@ public class ComplexityTest {
                 LogCallsCollector calls = new LogCallsCollector();
                 LookaheadCounter lookahead = new LookaheadCounter();
 
-                JavaCCMethodsAspect.init(counter, calls, lookahead);
+                //JavaCCMethodsAspect.init(counter, calls, lookahead);
+                JavaCCMethodsAspect.init();
 
                 System.out.println("testing sql=" + sql);
                 try {
@@ -109,7 +110,8 @@ public class ComplexityTest {
                 LogCallsCollector calls = new LogCallsCollector();
                 LookaheadCounter lookahead = new LookaheadCounter();
 
-                JavaCCMethodsAspect.init(counter, calls, lookahead);
+                //JavaCCMethodsAspect.init(counter, calls, lookahead);
+                JavaCCMethodsAspect.init();
 
                 System.out.println("testing sql=" + sql);
                 try {
@@ -131,12 +133,13 @@ public class ComplexityTest {
     }
     
     @Test
+    @Ignore
     public void testComplexitySimpleCaseWhen() throws JSQLParserException, IOException, SQLException {
         MethodCounter counter = new MethodCounter();
         LogCallsCollector calls = new LogCallsCollector();
         LookaheadCounter lookahead = new LookaheadCounter();
         JavaCCMethodsAspect.init(counter, calls, lookahead);
-        String sql = "SELECT CASE WHEN ( CASE WHEN ( CASE WHEN ( CASE WHEN ( 1 ) THEN 0 END ) THEN 0 END ) THEN 0 END ) THEN 0 END FROM a";
+        String sql = "SELECT CASE WHEN ( CASE WHEN ( CASE WHEN ( 1 ) THEN 0 END ) THEN 0 END ) THEN 0 END FROM a";
         Statement stmt = CCJSqlParserUtil.parse(sql);
         System.out.println("counter=" + calls.getCount());
         System.out.println("---- global method counts ----");
