@@ -10,11 +10,9 @@ import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
 import org.apache.commons.io.IOUtils;
-import org.junit.After;
-import static org.junit.Assert.fail;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.tw.jsqlparser.perftest.aspects.JavaCCMethodsAspect;
 import org.tw.jsqlparser.perftest.aspects.LogCallsCollector;
 import org.tw.jsqlparser.perftest.aspects.LogCollector;
@@ -27,16 +25,8 @@ import org.tw.jsqlparser.perftest.aspects.MethodCounter;
  */
 public class ComplexityTest {
 
-    @Before
-    public void setupTest() throws IOException {
-    }
-
-    @After
-    public void exitTest() {
-    }
-
     @Test
-    @Ignore
+    @Disabled
     public void testComplexity1() throws JSQLParserException, SQLException {
         MethodCounter counter = new MethodCounter();
         LogCallsCollector calls = new LogCallsCollector();
@@ -51,7 +41,7 @@ public class ComplexityTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testComplexity2() throws JSQLParserException, IOException, SQLException {
         MethodCounter counter = new MethodCounter();
         LogCallsCollector calls = new LogCallsCollector();
@@ -100,7 +90,7 @@ public class ComplexityTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testComplexityOutput2() throws JSQLParserException, IOException, SQLException {
         boolean result = true;
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(ComplexityTest.class.getResourceAsStream("output2.sql")));) {
@@ -133,7 +123,7 @@ public class ComplexityTest {
     }
     
     @Test
-    @Ignore
+    @Disabled
     public void testComplexitySimpleCaseWhen() throws JSQLParserException, IOException, SQLException {
         MethodCounter counter = new MethodCounter();
         LogCallsCollector calls = new LogCallsCollector();
